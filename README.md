@@ -1,6 +1,6 @@
 ## Repository for AWS IoT blog post "Monitor IoT device geolocation with AWS IoT Events"
 
-This repository includes a sample detector model file that can be imported in AWS IoT Events in order to create a detector model.
+This repository includes a sample detector model file (detector-model-sample.json) that can be imported in AWS IoT Events in order to create a detector model.
 
 ## License
 
