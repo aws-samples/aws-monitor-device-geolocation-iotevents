@@ -1,13 +1,7 @@
-## My Project
+## Repository for AWS IoT blog post "Monitor IoT device geolocation with AWS IoT Events". 
 
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+This repository includes a sample detector model file that can be imported in AWS IoT Events in order to create a detector model.
 
 ## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
-

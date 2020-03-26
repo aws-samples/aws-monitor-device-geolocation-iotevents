@@ -1,0 +1,100 @@
+{
+    "detectorModelDefinition": {
+        "states": [
+            {
+                "stateName": "InBoundary",
+                "onInput": {
+                    "events": [
+                        {
+                            "eventName": "EvaluateNormalState",
+                            "condition": "$input.gpsInput.gpsLat>=10.1 && $input.gpsInput.gpsLat<=10.2 && $input.gpsInput.gpsLng>=10.1 && $input.gpsInput.gpsLng<=10.2",
+                            "actions": [
+                                {
+                                    "sns": {
+                                        "targetArn": "#snsTopicArn#"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "transitionEvents": [
+                        {
+                            "eventName": "NotInBoundaryTransition",
+                            "condition": "$input.gpsInput.gpsLat<10.1 || $input.gpsInput.gpsLat>10.2 || $input.gpsInput.gpsLng<10.1 || $input.gpsInput.gpsLng>10.2",
+                            "actions": [],
+                            "nextState": "OutOfBoundary"
+                        }
+                    ]
+                },
+                "onEnter": {
+                    "events": [
+                        {
+                            "eventName": "EvaluateNormalState",
+                            "condition": "$input.gpsInput.gpsLat>=10.1 && $input.gpsInput.gpsLat<=10.2 && $input.gpsInput.gpsLng>=10.1 && $input.gpsInput.gpsLng<=10.2",
+                            "actions": [
+                                {
+                                    "sns": {
+                                        "targetArn": "#snsTopicArn#"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "onExit": {
+                    "events": []
+                }
+            },
+            {
+                "stateName": "OutOfBoundary",
+                "onInput": {
+                    "events": [
+                        {
+                            "eventName": "EvaluateBoundary",
+                            "condition": "$input.gpsInput.gpsLat<10.1 || $input.gpsInput.gpsLat>10.2 || $input.gpsInput.gpsLng<10.1 || $input.gpsInput.gpsLng>10.2",
+                            "actions": [
+                                {
+                                    "sns": {
+                                        "targetArn": "#snsTopicArn#"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "transitionEvents": [
+                        {
+                            "eventName": "InBoundaryTransition",
+                            "condition": "$input.gpsInput.gpsLat>=10.1 && $input.gpsInput.gpsLat<=10.2 && $input.gpsInput.gpsLng>=10.1 && $input.gpsInput.gpsLng<=10.2",
+                            "actions": [],
+                            "nextState": "InBoundary"
+                        }
+                    ]
+                },
+                "onEnter": {
+                    "events": [
+                        {
+                            "eventName": "EvaluateBoundary",
+                            "condition": "$input.gpsInput.gpsLat<10.1 || $input.gpsInput.gpsLat>10.2 || $input.gpsInput.gpsLng<10.1 || $input.gpsInput.gpsLng>10.2",
+                            "actions": [
+                                {
+                                    "sns": {
+                                        "targetArn": "#snsTopicArn#"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "onExit": {
+                    "events": []
+                }
+            }
+        ],
+        "initialStateName": "InBoundary"
+    },
+    "detectorModelDescription": null,
+    "detectorModelName": "GeolocationDetector",
+    "evaluationMethod": "BATCH",
+    "key": "gpsDeviceID",
+    "roleArn": "#detectorModelRoleArn#"
+}
